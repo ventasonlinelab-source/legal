@@ -126,7 +126,6 @@
                 asset_value: document.getElementById('asset_value').value,
                 crm, 
                 multaTotal,
-                // TRAZABILIDAD 10X²
                 utm_source: urlParams.get('utm_source') || 'Directo',
                 utm_medium: urlParams.get('utm_medium') || 'Social',
                 utm_campaign: urlParams.get('utm_campaign') || 'Sin Campaña',
@@ -159,5 +158,6 @@
             }, 2000);
         }
     </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
