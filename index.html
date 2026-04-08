@@ -104,7 +104,7 @@
     </div>
 
     <script>
-        const WEBHOOK_URL = 'https://n8n.planneruniversedigital.com/webhook-test/539d7879-37ff-47a1-a64e-6186a94aa0f8';
+        const WEBHOOK_URL = 'https://n8n.planneruniversedigital.com/webhook/539d7879-37ff-47a1-a64e-6186a94aa0f8';
         
         function run() {
             const nameValue = document.getElementById('name').value;
@@ -126,7 +126,7 @@
                 asset_value: document.getElementById('asset_value').value,
                 crm, 
                 multaTotal,
-                // RASTREADOR DE TRAZABILIDAD PUBLICITARIA INTEGRAL
+                // TRAZABILIDAD 10X²
                 utm_source: urlParams.get('utm_source') || 'Directo',
                 utm_medium: urlParams.get('utm_medium') || 'Social',
                 utm_campaign: urlParams.get('utm_campaign') || 'Sin Campaña',
