@@ -26,11 +26,23 @@
         .card { background: var(--card); padding: 30px; border-radius: 8px; border: 1px solid #333; text-align: left; box-shadow: 0 20px 50px rgba(0,0,0,0.7); }
         label { font-size: 10px; color: #a1a1aa; text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 8px; letter-spacing: 0.5px; }
         input, select { width: 100%; padding: 14px; background: #09090b; border: 1px solid #3f3f46; color: #fff; border-radius: 4px; font-size: 15px; box-sizing: border-box; margin-bottom: 15px; }
-        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; text-align: left; cursor: pointer; }
-        .checkbox-container input { width: auto; margin: 4px 0 0 0; cursor: pointer; }
-        .checkbox-text { font-size: 11px; color: #a1a1aa; line-height: 1.4; font-weight: 600; }
+        
+        /* Bloque de Aceptación Unificado arriba del botón */
+        .check-legal-container { display: flex; align-items: flex-start; gap: 12px; margin: 10px 0 25px 0; cursor: pointer; background: #0c0c0e; padding: 12px; border-radius: 4px; border: 1px dashed #333; }
+        .check-legal-container input { width: 18px; height: 18px; margin: 0; cursor: pointer; accent-color: var(--red); }
+        .check-text { font-size: 11px; color: #a1a1aa; line-height: 1.4; font-weight: 600; }
+        .check-text a { color: var(--red); text-decoration: underline; }
+
         .btn-main { background: var(--red); color: #fff; border: none; padding: 20px; width: 100%; font-weight: 900; text-transform: uppercase; border-radius: 4px; cursor: pointer; font-size: 15px; letter-spacing: 1px; transition: 0.2s; }
         .btn-main:active { transform: scale(0.98); }
+        
+        .hidden { display: none; }
+        .spinner { border: 3px solid rgba(255,255,255,0.1); border-left-color: var(--red); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+        footer { margin-top: 40px; border-top: 1px solid #222; padding-top: 20px; font-size: 9px; color: #3f3f46; text-align: left; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Estilos Reporte */
         .report-box { background: #fff; color: #000; padding: 25px; border-radius: 10px; border-left: 10px solid var(--red); margin-bottom: 15px; text-align: left; }
         .report-box.secure { border-left-color: var(--green); background: #f0fdf4; }
         .big-num { font-size: 30px; font-weight: 900; letter-spacing: -1.5px; margin: 5px 0; color: var(--red); line-height: 1; }
@@ -40,10 +52,6 @@
         .tech-list li { margin-bottom: 6px; padding-left: 20px; position: relative; line-height: 1.3; }
         .tech-list li::before { content: "×"; color: var(--red); position: absolute; left: 0; font-weight: 900; }
         .secure .tech-list li::before { content: "✓"; color: var(--green); }
-        .hidden { display: none; }
-        .spinner { border: 3px solid rgba(255,255,255,0.1); border-left-color: var(--red); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -59,6 +67,7 @@
                 <input type="text" id="name" placeholder="Tu nombre" required>
                 <label>WhatsApp Directo</label>
                 <input type="tel" id="phone" placeholder="+34..." required>
+                
                 <label>Volumen Operativo Anual</label>
                 <select id="fact">
                     <option value="500000">500k - 1M €</option>
@@ -85,15 +94,21 @@
                     <option value="inmediato">En el instante (500ms)</option>
                 </select>
 
-                <label class="checkbox-container">
-                    <input type="checkbox" id="politicas">
-                    <span class="checkbox-text">Confirmo cargo de alta dirección y acepto auditoría técnica.</span>
+                <label class="check-legal-container">
+                    <input type="checkbox" id="acepta_todo">
+                    <span class="check-text">
+                        Acepto de forma integral la <a href="#info-legal">Política de Privacidad, RGPD y el uso de Cookies (Pixel)</a> para procesar mi auditoría técnica y blindaje legal.
+                    </span>
                 </label>
 
                 <button class="btn-main" onclick="run()">GENERAR SENTENCIA DE RIESGO</button>
             </div>
             <div id="loading" class="hidden"><div class="spinner"></div></div>
         </div>
+        
+        <footer id="info-legal">
+            <b>INFO LEGAL SOBERANÍA TÉCNICA:</b> Finalidad: Envío de diagnóstico y optimización vía Pixel de Meta. No cedemos datos a terceros. Responsable: Protocolo 10X².
+        </footer>
     </div>
 
     <div id="result-view" class="container hidden" style="animation: fadeIn 0.4s;">
@@ -116,64 +131,54 @@
 
         <div style="background:var(--red); color:#fff; padding:25px; border-radius:10px; margin-top:20px;">
             <p style="font-weight:900; font-size:1.1rem; margin:0; text-transform:uppercase;">Blindaje en Proceso</p>
-            <p style="font-size:14px; font-weight:600; margin:10px 0 0 0;"><span id="user-name"></span>, tus datos técnicos han sido procesados. Un Ingeniero de Sistemas de Alto Rendimiento evaluará tu brecha de seguridad. <b>Recibirás contacto directo en menos de 5 minutos</b> para sellar tu trazabilidad. Mantente alerta.</p>
+            <p style="font-size:14px; font-weight:600; margin:10px 0 0 0;"><span id="user-name"></span>, tus datos técnicos han sido procesados. <b>Recibirás contacto directo en menos de 5 minutos</b> para sellar tu trazabilidad. Mantente alerta.</p>
         </div>
     </div>
 
     <script>
-        // WEBHOOK DE N8N ACTIVO
         const WEBHOOK_URL = 'https://n8n.planneruniversedigital.com/webhook/539d7879-37ff-47a1-a64e-6186a94aa0f8';
 
         function run() {
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
-            const fact = document.getElementById('fact').value;
-            const verifactu = document.getElementById('verifactu').value;
-            const inalterable = document.getElementById('inalterable').value;
-            const cierre = document.getElementById('cierre').value;
+            const check = document.getElementById('acepta_todo').checked;
 
-            if(!name || !phone || !document.getElementById('politicas').checked) return alert("Datos de seguridad incompletos.");
+            if(!name || !phone) return alert("Datos de identificación obligatorios.");
+            if(!check) return alert("Debe aceptar los términos de soberanía técnica para proceder.");
             
-            const leadData = { name, phone, fact, verifactu, inalterable, cierre, action: 'INMO_LEAD' };
+            const leadData = { 
+                name, phone, 
+                fact: document.getElementById('fact').value, 
+                verifactu: document.getElementById('verifactu').value, 
+                inalterable: document.getElementById('inalterable').value, 
+                cierre: document.getElementById('cierre').value, 
+                action: 'INMO_LEAD' 
+            };
 
             document.getElementById('fields').classList.add('hidden');
             document.getElementById('loading').classList.remove('hidden');
 
-            // ENVÍO A N8N
             fetch(WEBHOOK_URL, { 
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json'}, 
                 body: JSON.stringify(leadData) 
             });
 
-            // TRACKING DE LEAD PARA FACEBOOK
             if(window.fbq) fbq('track', 'Lead');
 
             setTimeout(() => {
                 document.getElementById('main-view').classList.add('hidden');
                 document.getElementById('result-view').classList.remove('hidden');
-                
-                // INYECTAR NOMBRE DINÁMICO
                 document.getElementById('user-name').innerText = name;
                 
                 let t_list = "";
-                if(inalterable === 'vulnerable') {
+                if(document.getElementById('inalterable').value === 'vulnerable') {
                     t_list += "<li><b>Edición activa:</b> Riesgo de manipulación posterior detectado.</li>";
-                } else {
-                    t_list += "<li><b>Bloqueo:</b> Registro básico de datos correcto.</li>";
                 }
-                if(cierre === 'lento') {
+                if(document.getElementById('cierre').value === 'lento') {
                     t_list += "<li><b>Latencia Legal:</b> No cumple con el sellado inmediato (500ms).</li>";
                 }
                 document.getElementById('t-list').innerHTML = t_list;
-
-                if(verifactu === 'si' && inalterable === 'bloqueado' && cierre === 'inmediato') {
-                    document.getElementById('f-box').classList.add('secure');
-                    document.getElementById('f-money').innerText = "BLINDADO";
-                    document.getElementById('f-list').innerHTML = "<li>Certificación activa.</li><li>Protocolo 10X² detectado.</li>";
-                    document.getElementById('t-status').innerText = "ÓPTIMA";
-                    document.getElementById('t-box').classList.add('secure');
-                }
             }, 2000);
         }
     </script>
