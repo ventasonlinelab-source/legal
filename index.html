@@ -15,6 +15,9 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    
     <title>AUDITORÍA TRAZABILIDAD 10X²</title>
     <style>
         :root { --red: #dc2626; --bg: #000; --card: #18181b; --green: #10b981; }
@@ -98,7 +101,7 @@
         </div>
         <div style="background:var(--red); color:#fff; padding:25px; border-radius:10px; margin-top:20px;">
             <p style="font-weight:900; font-size:1.1rem; margin:0; text-transform:uppercase;">Protocolo de Bloqueo Activado</p>
-            <p style="font-size:14px; font-weight:600; margin:10px 0 0 0;"><span id="user-name"></span>, tu exposición en 2026 es crítica. <b>Nuestro equipo está iniciando el contacto directo</b> para blindar tu agencia ahora mismo.</p>
+            <p style="font-size:14px; font-weight:600; margin:10px 0 0 0;"><span id="display-name"></span>, tu exposición en 2026 es crítica. <b>Nuestro equipo está iniciando el contacto directo</b> para blindar tu agencia ahora mismo.</p>
         </div>
     </div>
 
@@ -106,22 +109,25 @@
         const WEBHOOK_URL = 'https://n8n.planneruniversedigital.com/webhook/539d7879-37ff-47a1-a64e-6186a94aa0f8';
         
         function run() {
-            const name = document.getElementById('name').value;
+            const nameValue = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const opsValue = parseInt(document.getElementById('ops').value);
             const crm = document.getElementById('crm').value;
             const check = document.getElementById('acepta_todo').checked;
             
-            if(!name || !phone) return alert("Identificación obligatoria para la auditoría.");
+            if(!nameValue || !phone) return alert("Identificación obligatoria para la auditoría.");
             if(!check) return alert("Debe aceptar los términos y el contacto directo para proceder.");
             
             let multaTotal = opsValue * 50000;
             const urlParams = new URLSearchParams(window.location.search);
             
             const leadData = { 
-                name, phone, ops: document.getElementById('ops').options[document.getElementById('ops').selectedIndex].text, 
+                name: nameValue, 
+                phone, 
+                ops: document.getElementById('ops').options[document.getElementById('ops').selectedIndex].text, 
                 asset_value: document.getElementById('asset_value').value,
-                crm, multaTotal,
+                crm, 
+                multaTotal,
                 utm_source: urlParams.get('utm_source') || 'Directo',
                 utm_campaign: urlParams.get('utm_campaign') || 'Sin Campaña',
                 action: 'INMO_LEAD' 
@@ -139,10 +145,10 @@
             if(window.fbq) fbq('track', 'Lead');
 
             setTimeout(() => {
+                document.getElementById('display-name').innerText = nameValue;
+                document.getElementById('f-money').innerText = multaTotal.toLocaleString() + " €";
                 document.getElementById('main-view').classList.add('hidden');
                 document.getElementById('result-view').classList.remove('hidden');
-                document.getElementById('user-name').innerText = name;
-                document.getElementById('f-money').innerText = multaTotal.toLocaleString() + " €";
                 
                 document.getElementById('f-list').innerHTML = `
                     <li>Riesgo sancionador por registros editables en ${crm}.</li>
