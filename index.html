@@ -15,9 +15,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="icon" type="image/png" href="favicon.png?v=10">
-    
     <title>AUDITORÍA TRAZABILIDAD 10X²</title>
     <style>
         :root { --red: #dc2626; --bg: #000; --card: #18181b; --green: #10b981; }
@@ -106,7 +104,7 @@
     </div>
 
     <script>
-        const WEBHOOK_URL = 'https://n8n.planneruniversedigital.com/webhook/539d7879-37ff-47a1-a64e-6186a94aa0f8';
+        const WEBHOOK_URL = 'https://n8n.planneruniversedigital.com/webhook-test/539d7879-37ff-47a1-a64e-6186a94aa0f8';
         
         function run() {
             const nameValue = document.getElementById('name').value;
@@ -116,7 +114,7 @@
             const check = document.getElementById('acepta_todo').checked;
             
             if(!nameValue || !phone) return alert("Identificación obligatoria para la auditoría.");
-            if(!check) return alert("Debe aceptar los términos y el contacto directo para proceder.");
+            if(!check) return alert("Debe aceptar los términos para proceder.");
             
             let multaTotal = opsValue * 50000;
             const urlParams = new URLSearchParams(window.location.search);
@@ -128,8 +126,12 @@
                 asset_value: document.getElementById('asset_value').value,
                 crm, 
                 multaTotal,
+                // RASTREADOR DE TRAZABILIDAD PUBLICITARIA INTEGRAL
                 utm_source: urlParams.get('utm_source') || 'Directo',
+                utm_medium: urlParams.get('utm_medium') || 'Social',
                 utm_campaign: urlParams.get('utm_campaign') || 'Sin Campaña',
+                utm_content: urlParams.get('utm_content') || 'Sin Anuncio (Orgánico)',
+                utm_term: urlParams.get('utm_term') || 'Sin Termino',
                 action: 'INMO_LEAD' 
             };
 
@@ -149,7 +151,6 @@
                 document.getElementById('f-money').innerText = multaTotal.toLocaleString() + " €";
                 document.getElementById('main-view').classList.add('hidden');
                 document.getElementById('result-view').classList.remove('hidden');
-                
                 document.getElementById('f-list').innerHTML = `
                     <li>Riesgo sancionador por registros editables en ${crm}.</li>
                     <li>Ausencia de sellado inalterable Verifactu.</li>
